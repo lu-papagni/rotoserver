@@ -1,5 +1,6 @@
-minecraft/*
+minecraft/**
 !minecraft/config/
 !minecraft/*.properties
 !minecraft/*.json
+minecraft/*-manifest.json
 *.db
