@@ -6,7 +6,7 @@ This is the RotoServer configuration, powered by
 ## Pre-requisites
 
 - UNIX environment (Linux / WSL)
-- Docker installed + daemon running
+- Docker installed + [compose](https://docs.docker.com/compose/install) plugin + daemon running
 
 > [!TIP]
 > To make the server reachable from outside the local network, use a *dynamic DNS*
