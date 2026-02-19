@@ -46,6 +46,9 @@ general:
   max_homes: 999
   # The maximum public homes a user can create. Override with the huskhomes.max_public_homes.<number> permission.
   max_public_homes: 10
+  # What character to use between owner usernames and home names when specifying a home or public home.
+  # (e.g. the '.' in: /phome username.home_name). Change if you're using '.' as the Bedrock user prefix.
+  home_delimiter: .
   # Whether permission limits (i.e. huskhomes.max_homes.<number>) should stack if the user inherits multiple nodes.
   stack_permission_limits: false
   # Whether users require a permission (huskhomes.warp.<warp_name>) to use warps
@@ -62,6 +65,8 @@ general:
   teleport_invulnerability_time: 0
   # How long before received teleport requests expire (in seconds)
   teleport_request_expiry_time: 60
+  # Whether /tpa should use the location of the sender when accepted. 
+  strict_tpa_requests: false
   # Whether /tpahere should use the location of the sender when sent. Docs: https://william278.net/docs/huskhomes/strict-tpahere/
   strict_tpa_here_requests: true
   # How many items should be displayed per-page in chat menu lists
@@ -92,6 +97,9 @@ general:
     return_by_death: true
     # Whether /back should work with other plugins that use the PlayerTeleportEvent (can conflict)
     save_on_teleport_event: false
+    # List of world names where the /back command cannot RETURN the player to. 
+    # A user's last position won't be updated if they die or teleport from these worlds, but they still will be able to use the command while IN the world.
+    restricted_worlds: []
   # Settings for sound effects
   sound_effects:
     # Whether to play sound effects
@@ -114,8 +122,12 @@ cross_server:
   redis:
     host: localhost
     port: 6379
+    # Only change this if you know what you are doing. The default value is 0.
+    database: 0
     # Password for your Redis server. Leave blank if you're not using a password.
     password: ''
+    # Timeout for connecting to the Redis server (in milliseconds)
+    timeout: 2000
     use_ssl: false
     # Settings for if you're using Redis Sentinels.
     # If you're not sure what this is, please ignore this section.
@@ -149,7 +161,7 @@ rtp:
   # Set the maximum random teleportation height for each world
   # List of world_name:height pairs
   max_height: []
-  # List of worlds in which /rtp is disabled. Please note that /rtp does not work well in the nether.
+  # List of worlds in which /rtp is disabled.
   restricted_worlds:
   - world_nether
   - world_the_end
@@ -157,6 +169,7 @@ rtp:
   cross_server: false
   # List of server in which /rtp is allowed. (Only relevant when using cross server mode WITH REDIS)
   # If a server is not defined here the RTP logic has no way of knowing its existence.
+  # Unless specified, the default world name used as targeted world is the name of the world the player currently standing in.
   random_target_servers:
     server:
     - world
@@ -180,6 +193,14 @@ economy:
     RANDOM_TELEPORT: 25.0
   # Specify how many homes players can set for free, before they need to pay for more slots
   free_home_slots: 5
+# Plan hook settings. Docs: https://william278.net/docs/huskhomes/plan-hook
+plan:
+  # Hook into Player Analytics to provide HuskHomes statistics in your web dashboard.
+  enabled: true
+# LuckPerms hook settings. Docs: https://william278.net/docs/huskhomes/luckperms-hook
+luckperms:
+  # Hook into LuckPerms for more accurate numerical permission calculations
+  enabled: true
 # Web map hook settings. Docs: https://william278.net/docs/huskhomes/map-hooks
 map_hook:
   # Display public homes/warps on your Dynmap, BlueMap or Pl3xMap

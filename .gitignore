@@ -1,5 +1,7 @@
 minecraft/**
 !minecraft/config/
+!minecraft/config/huskhomes/
+!minecraft/config/huskhomes/**
 !minecraft/*.properties
 !minecraft/*.json
 minecraft/*-manifest.json
